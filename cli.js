@@ -9,7 +9,7 @@ const mkdirp = require("mkdirp");
 const PageSpeeder = require("./Pagespeeder");
 
 // Get Parameters
-const outputType = argv.output || argv.o || "default";
+const outputType = argv.output || argv.o || "cli";
 const url = argv.url || argv.u;
 const device = argv.device || argv.d;
 let outputPath = argv.outputPath || argv.p || path.join(".");
@@ -17,7 +17,7 @@ let runCount = Number(argv.runs || argv.r) || 1;
 
 // Constants
 const isOutputJSON = outputType === "json";
-const defaultFileName = "lighthouse_result_###.json";
+const defaultFileName = "lighthouse_result.json";
 
 if (
   outputType === "json" &&
@@ -36,11 +36,6 @@ if (
     outputPath = path.join(outputPath, defaultFileName);
   }
 }
-
-// Capture Events
-process.once("SIGINT", () => {
-  process.exit(0);
-});
 
 const colorScore = (score) => {
   const rating = {
@@ -120,7 +115,9 @@ const createResultTable = (device, scores) => {
   for (const scoreObj of scores) {
     if (isOutputJSON) {
       await mkdirp(path.dirname(outputPath));
-      const deviceOutputPath = outputPath.replace("###", scoreObj.device);
+      let fileName = path.basename(outputPath, ".json");
+      const newFileName = fileName + "_" + scoreObj.device;
+      const deviceOutputPath = outputPath.replace(fileName, newFileName);
       await fs.writeFile(
         deviceOutputPath,
         JSON.stringify(scoreObj.score),
