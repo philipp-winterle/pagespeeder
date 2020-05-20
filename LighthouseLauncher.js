@@ -58,6 +58,11 @@ class LighthouseLauncher {
             console.error(err);
             chromeLauncher.killAll();
           });
+      })
+      .catch((err) => {
+        if (err.signal !== "SIGINT") {
+          console.error(err);
+        }
       });
   }
 }

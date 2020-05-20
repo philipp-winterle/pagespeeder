@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require("path");
 const argv = require("yargs").argv;
 const Table = require("cli-table3");
@@ -35,6 +37,11 @@ if (
   }
 }
 
+// Capture Events
+process.once("SIGINT", () => {
+  process.exit(0);
+});
+
 const colorScore = (score) => {
   const rating = {
     "90": "green",
@@ -56,14 +63,22 @@ const createResultTable = (device, scores) => {
   console.log(
     c.bold.bgBlue(
       c.whiteBright(
-        `Lighthouse Performance Check - Device ${c.blackBright.italic(device)}`
+        `\tLighthouse Performance Check - Device ${c.blackBright.italic(
+          device
+        )}`
       )
     )
   );
-  console.log(`${c.bold("Score:")} ${colorScore(scores.mainScore)}`);
+  console.log(`\t${c.bold("Score:")} ${colorScore(scores.mainScore)}`);
 
   // Create Table head
   const table = new Table({
+    chars: {
+      "top-left": "\t╔",
+      "bottom-left": "\t╚",
+      left: "\t║",
+      "left-mid": "\t╟",
+    },
     head: ["Audit", "Score", "Value"],
   });
 
@@ -78,8 +93,8 @@ const createResultTable = (device, scores) => {
 
 (async () => {
   console.log(`
-    ${c.yellow.bold("Lighthouse Performance Measurement")}
-    ${c.italic.grey("Version:")} ${c.italic.grey(
+\t${c.yellow.bold("Lighthouse Performance Measurement")}
+\t${c.italic.grey("Version:")} ${c.italic.grey(
     require("lighthouse/package.json").version
   )}`);
 
@@ -88,7 +103,7 @@ const createResultTable = (device, scores) => {
     hooks: {
       beforeRunDevice: (device, options) => {
         if (options.silent === false) {
-          console.log(`\n    Calculating score for ${c.magentaBright(device)}`);
+          console.log(`\n\tCalculating score for ${c.magentaBright(device)}`);
         }
       },
       beforeRunIteration: (run, runCount, options) => {
@@ -116,5 +131,5 @@ const createResultTable = (device, scores) => {
     }
   }
 
-  console.log(`\n     ${c.green("Lighthouse run finished")}`);
+  console.log(`\t${c.green("Lighthouse run finished")}`);
 })();

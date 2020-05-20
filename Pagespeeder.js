@@ -139,14 +139,17 @@ class PageSpeeder {
         await lhl
           .launch()
           .then((results) => {
-            const audits = Object.entries(results.audits);
+            // Results can be empty on lh crash
+            if (results) {
+              const audits = Object.entries(results.audits);
 
-            const result = {
-              score: results.categories.performance.score,
-              audits: audits,
-            };
+              const result = {
+                score: results.categories.performance.score,
+                audits: audits,
+              };
 
-            scoresArr.push(result);
+              scoresArr.push(result);
+            }
           })
           .catch((err) => {
             console.error(err);
@@ -155,15 +158,17 @@ class PageSpeeder {
         this.options.hooks.afterRunInteration(run, this.runCount, this.options);
       }
 
-      // Contains an object of scores
-      const score = this.normalizeScores(scoresArr);
+      if (scoresArr.length > 0) {
+        // Contains an object of scores
+        const score = this.normalizeScores(scoresArr);
 
-      this.options.hooks.afterRunDevice(device, this.options);
+        this.options.hooks.afterRunDevice(device, this.options);
 
-      scores.push({
-        device: device,
-        score: score,
-      });
+        scores.push({
+          device: device,
+          score: score,
+        });
+      }
     }
 
     return scores;
