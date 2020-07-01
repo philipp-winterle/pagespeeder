@@ -13,7 +13,7 @@ class PageSpeeder {
   runCount = 1;
   options = {
     launcherOptions: {
-      chromeFlags: ["--show-paint-rects", "--headless"],
+      chromeFlags: ["--show-paint-rects", "--headless", "--no-sandbox"],
     },
     lighthouseConfig: lighthouseConfig,
     silent: false,

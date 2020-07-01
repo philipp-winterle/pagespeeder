@@ -4,6 +4,10 @@ Measure pagespeed with a simple configuration.
 
 ## Install
 
+### Requirements
+
+- Chrome / Chromium needs to be installed first
+
 `npm i -g pagespeeder`
 
 ## CLI Usage
