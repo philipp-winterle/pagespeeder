@@ -19,6 +19,13 @@ let runCount = Number(argv.runs || argv.r) || 1;
 const isOutputJSON = outputType === "json";
 const defaultFileName = "lighthouse_result.json";
 
+// Exit Handlers
+process.on("SIGINT", () => {
+  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+  // some other closing procedures go here
+  process.exit(0);
+});
+
 if (
   outputType === "json" &&
   (outputPath === null || outputPath === undefined)
