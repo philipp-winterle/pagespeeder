@@ -13,7 +13,12 @@ class PageSpeeder {
   runCount = 1;
   options = {
     launcherOptions: {
-      chromeFlags: ["--show-paint-rects", "--headless", "--no-sandbox"],
+      chromeFlags: [
+        "--no-zygote",
+        "--headless",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+      ],
     },
     lighthouseConfig: lighthouseConfig,
     silent: false,

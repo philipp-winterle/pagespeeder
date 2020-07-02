@@ -1,6 +1,6 @@
 {
   "name": "pagespeeder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "ansi-colors": "^4.1.1",
     "cli-table3": "^0.6.0",
     "deepmerge": "^4.2.2",
-    "lighthouse": "^6.0.0",
+    "lighthouse": "^6.1.0",
     "mkdirp": "^1.0.4",
     "yargs": "^15.3.1"
   },
