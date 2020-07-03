@@ -18,6 +18,7 @@ class PageSpeeder {
         "--headless",
         "--no-sandbox",
         "--disable-setuid-sandbox",
+        "--disable-gpu",
       ],
     },
     lighthouseConfig: lighthouseConfig,
