@@ -7,7 +7,7 @@ const lighthouseConfig = require("./lighthouse.conf.js");
  * @class PageSpeeder
  */
 class PageSpeeder {
-  availableDevices = ["mobile", "desktop"];
+  availableDevices = [PageSpeeder.DEVICE_MOBILE, PageSpeeder.DEVICE_DESKTOP];
   scores = [];
   devices = [];
   runCount = 1;
@@ -56,6 +56,13 @@ class PageSpeeder {
     }
 
     this.options = deepmerge(this.options, options);
+  }
+
+  static get DEVICE_DESKTOP() {
+    return "desktop";
+  }
+  static get DEVICE_MOBILE() {
+    return "mobile";
   }
 
   /**
