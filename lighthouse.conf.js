@@ -11,7 +11,6 @@ module.exports = {
       "first-cpu-idle",
       "cumulative-layout-shift",
       "estimated-input-latency",
-      "server-response-time",
     ],
   },
 };
