@@ -1,5 +1,6 @@
 const deepmerge = require("deepmerge");
 const LighthouseLauncher = require("./LighthouseLauncher.js");
+const browserLauncher = require("./BrowserLauncher.js");
 const lighthouseConfig = require("./lighthouse.conf.js");
 
 /**
@@ -13,7 +14,10 @@ class PageSpeeder {
   runCount = 1;
   options = {
     launcherOptions: {
-      chromeFlags: [
+      port: null,
+      ignoreHTTPSErrors: true,
+      headless: true,
+      args: [
         "--no-zygote",
         "--headless",
         "--no-sandbox",
@@ -127,7 +131,12 @@ class PageSpeeder {
    * @memberof PageSpeeder
    */
   async run() {
+    // Variables
     const scores = [];
+    const canCloseBrowser = this.options.launcherOptions.port === null;
+    const { browser, browserPort } = await browserLauncher(
+      this.options.launcherOptions
+    ); // returns a browser or null
 
     for await (const device of this.devices) {
       // Call hook
@@ -143,11 +152,12 @@ class PageSpeeder {
           emulatedFormFactor: device,
         });
 
-        const lhl = new LighthouseLauncher(
-          this.url,
-          this.options.launcherOptions,
-          lighthouseConfig
-        );
+        const lhl = new LighthouseLauncher({
+          url: this.url,
+          browser,
+          browserPort,
+          lighthouseConfig,
+        });
 
         await lhl
           .launch()
@@ -182,6 +192,13 @@ class PageSpeeder {
           score: score,
         });
       }
+    }
+
+    // When there is a browser -> close it. If the browser was not opened by us -> keep it
+    if (canCloseBrowser) {
+      await browser.close();
+    } else {
+      await browser.disconnect();
     }
 
     return scores;

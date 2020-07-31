@@ -6,7 +6,7 @@ const Table = require("cli-table3");
 const c = require("ansi-colors");
 const fs = require("fs").promises;
 const mkdirp = require("mkdirp");
-const PageSpeeder = require("./Pagespeeder");
+const PageSpeeder = require("./Pagespeeder.js");
 
 // Get Parameters
 const outputType = argv.output || argv.o || "cli";
@@ -26,6 +26,19 @@ process.on("SIGINT", () => {
   process.exit(0);
 });
 
+if (!url) {
+  console.error(
+    `You need to set an url with "--url https://google.com" or "-u https://google.com" in order to recieve pagespeed information.`
+  );
+  process.exit(1);
+} else if (
+  !url.match(
+    /^(https?|ftp|torrent|image|irc):\/\/(-\.)?([^\s\/?\.#-]+\.?)+(\/[^\s]*)?$/i
+  )
+) {
+  console.error(`The given url doesn't seem to be a valid. Abort!`);
+  process.exit(1);
+}
 if (
   outputType === "json" &&
   (outputPath === null || outputPath === undefined)
