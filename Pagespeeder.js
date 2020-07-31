@@ -148,7 +148,9 @@ class PageSpeeder {
         this.options.hooks.beforeRunIteration(run, this.runCount, this.options);
 
         const lighthouseConfig = deepmerge(this.options.lighthouseConfig, {
-          emulatedFormFactor: device,
+          settings: {
+            emulatedFormFactor: device,
+          },
         });
 
         const lhl = new LighthouseLauncher({
