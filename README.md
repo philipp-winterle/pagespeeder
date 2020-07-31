@@ -79,8 +79,8 @@ options = {
 ### Examples
 
 ```javascript
-const PageSpeeder = require('pagespeeder');
-const ps = new PageSpeeder('https://github.com'', 'mobile', 3);
+const PageSpeeder = require("pagespeeder");
+const ps = new PageSpeeder("https://github.com", "mobile", 3);
 
 const scores = await ps.run();
 
