@@ -1,6 +1,6 @@
 {
   "name": "pagespeeder",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "Pagespeeder.js",
   "scripts": {
@@ -19,11 +19,11 @@
     "ansi-colors": "^4.1.1",
     "cli-table3": "^0.6.0",
     "deepmerge": "^4.2.2",
-    "lighthouse": "^6.1.0",
+    "lighthouse": "^6.1.1",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.0",
     "puppeteer": "^5.2.1",
-    "yargs": "^15.3.1"
+    "yargs": "^15.4.1"
   },
   "bin": {
     "pagespeeder": "./cli.js"

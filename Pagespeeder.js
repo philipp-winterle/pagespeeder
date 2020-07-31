@@ -19,7 +19,6 @@ class PageSpeeder {
       headless: true,
       args: [
         "--no-zygote",
-        "--headless",
         "--no-sandbox",
         "--disable-setuid-sandbox",
         "--disable-gpu",

@@ -38,10 +38,30 @@ new PageSpeeder(url, device, runs, options);
 #### Options
 
 ```javascript
+url = string - "https://google.com";
+```
+
+```javascript
+device = string - "mobile" || "desktop" || null; // null means "mobile && desktop"
+```
+
+```javascript
+runs = number - 1; // Number of runs for one result (average score)
+```
+
+```javascript
 options = {
     // Options for the chrome-launcher and chrome flags itselt
     launcherOptions: {
-      chromeFlags: ["--show-paint-rects", "--headless"],
+      port: null,
+      ignoreHTTPSErrors: true,
+      headless: true,
+      args: [
+        "--no-zygote",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+      ],
     },
     // Config to give to lighthouse. Default Config 'lighthouse.conf.js' is used.
     lighthouseConfig: lighthouseConfig,
