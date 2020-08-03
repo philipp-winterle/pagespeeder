@@ -19,25 +19,43 @@
 const puppeteer = require("puppeteer");
 // const fetch = require("node-fetch");
 
+const connectToBrowser = async (port) => {
+  return await puppeteer.connect({
+    browserURL: `http://127.0.0.1:${browserPort}`,
+  });
+};
+
+const launchBrowser = async (browserOptions) => {
+  const browser = await puppeteer.launch(browserOptions);
+  const browserWsEndpoint = browser.wsEndpoint();
+  const {
+    groups: { port },
+  } = browserWsEndpoint.match(/ws:\/\/[0-9]+.*:(?<port>[0-9]*)?\//);
+  const browserPort = port;
+
+  return { browser, browserPort };
+};
+
 /**
  * @description Launches chrome with url, options and config
  * @returns <Promise<puppeteer.Browser>> Chrome Browser
  */
 module.exports = async (browserOptions) => {
-  let browser = null;
-  let browserPort = browserOptions.port || null;
+  let _browser = null;
+  let _browserPort = browserOptions.port || null;
   // If port exists and is a number
-  if (!isNaN(parseInt(browserPort))) {
-    browser = await puppeteer.connect({
-      browserURL: `http://127.0.0.1:${browserPort}`,
-    });
+  if (!isNaN(parseInt(_browserPort))) {
+    try {
+      _browser = await connectToBrowser(_browserPort);
+    } catch (e) {
+      const { browser, browserPort } = await launchBrowser(browserOptions);
+      _browser = browser;
+      _browserPort = browserPort;
+    }
   } else {
-    browser = await puppeteer.launch(browserOptions);
-    const browserWsEndpoint = browser.wsEndpoint();
-    const {
-      groups: { port },
-    } = browserWsEndpoint.match(/ws:\/\/[0-9]+.*:(?<port>[0-9]*)?\//);
-    browserPort = port;
+    const { browser, browserPort } = await launchBrowser(browserOptions);
+    _browser = browser;
+    _browserPort = browserPort;
 
     // // Get websocketDebuggerUrl for conneting to browser
     // const response = await fetch(
@@ -53,5 +71,5 @@ module.exports = async (browserOptions) => {
     // });
   }
 
-  return { browser, browserPort };
+  return { browser: _browser, browserPort: _browserPort };
 };
