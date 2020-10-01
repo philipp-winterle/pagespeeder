@@ -15,13 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+const debug = require("debug")("Pagespeeder-Core:BrowserLauncher");
 const puppeteer = require("puppeteer");
 // const fetch = require("node-fetch");
 
 const connectToBrowser = async (port) => {
   return await puppeteer.connect({
-    browserURL: `http://127.0.0.1:${browserPort}`,
+    browserURL: `http://127.0.0.1:${port}`,
   });
 };
 
@@ -46,13 +46,21 @@ module.exports = async (browserOptions) => {
   // If port exists and is a number
   if (!isNaN(parseInt(_browserPort))) {
     try {
+      debug("Trying to connect to browser with port " + _browserPort);
       _browser = await connectToBrowser(_browserPort);
+      debug(`Connected to existing browser at port ${_browserPort}`);
     } catch (e) {
+      debug("Connection failed.");
+      debug("Error %O", e);
+      debug("Launching new browser with given options.");
       const { browser, browserPort } = await launchBrowser(browserOptions);
       _browser = browser;
       _browserPort = browserPort;
     }
   } else {
+    debug(
+      "Browserport was not a number. Connection not possible. Launching a new browser."
+    );
     const { browser, browserPort } = await launchBrowser(browserOptions);
     _browser = browser;
     _browserPort = browserPort;

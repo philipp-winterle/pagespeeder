@@ -2,6 +2,7 @@ const deepmerge = require("deepmerge");
 const LighthouseLauncher = require("./LighthouseLauncher.js");
 const browserLauncher = require("./BrowserLauncher.js");
 const lighthouseConfig = require("./lighthouse.conf.js");
+const debug = require("debug")("Pagespeeder-Core");
 
 /**
  * @description
@@ -16,7 +17,7 @@ class PageSpeeder {
     launcherOptions: {
       port: null,
       ignoreHTTPSErrors: true,
-      headless: true,
+      headless: true, // Should always be true. Only for testing to false
       args: [
         "--no-zygote",
         "--no-sandbox",
@@ -136,6 +137,7 @@ class PageSpeeder {
     const { browser, browserPort } = await browserLauncher(
       this.options.launcherOptions
     ); // returns a browser or null
+    this.options.launcherOptions.port = browserPort;
 
     for await (const device of this.devices) {
       // Call hook

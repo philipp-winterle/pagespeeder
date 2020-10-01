@@ -18,6 +18,7 @@
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "cli-table3": "^0.6.0",
+    "debug": "^4.1.1",
     "deepmerge": "^4.2.2",
     "lighthouse": "^6.3.0",
     "mkdirp": "^1.0.4",
