@@ -6,6 +6,10 @@
   "scripts": {
     "test": "jest"
   },
+  "homepage": "https://github.com/hummal/pagespeeder",
+  "bugs": {
+    "url": "https://github.com/hummal/pagespeeder/issues"
+  },
   "author": "",
   "license": "ISC",
   "keywords": [
