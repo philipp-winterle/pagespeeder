@@ -1,7 +1,9 @@
 const deepmerge = require("deepmerge");
 const LighthouseLauncher = require("./LighthouseLauncher.js");
 const browserLauncher = require("./BrowserLauncher.js");
-const lighthouseConfig = require("./lighthouse.conf.js");
+const lighthouseMobileConfig = require("./lighthouse.mobile.conf.js");
+const lighthouseDesktopConfig = require("./lighthouse.desktop.conf.js");
+
 const debug = require("debug")("Pagespeeder-Core");
 
 /**
@@ -25,7 +27,6 @@ class PageSpeeder {
         "--disable-gpu",
       ],
     },
-    lighthouseConfig: lighthouseConfig,
     silent: false,
     hooks: {
       beforeRunDevice: (device, options) => {},
@@ -67,6 +68,16 @@ class PageSpeeder {
   }
   static get DEVICE_MOBILE() {
     return "mobile";
+  }
+
+  static getDeviceConfig(device) {
+    if (device === "mobile") {
+      return lighthouseMobileConfig;
+    } else if (device === "desktop") {
+      return lighthouseDesktopConfig;
+    } else {
+      throw new Error(`Can not get lighthouse config for device ${device}`);
+    }
   }
 
   /**
@@ -143,17 +154,12 @@ class PageSpeeder {
       // Call hook
       this.options.hooks.beforeRunDevice(device, this.options);
 
+      const lighthouseConfig = PageSpeeder.getDeviceConfig(device);
       let run = 0;
       let scoresArr = [];
 
       while (run++ < this.runCount) {
         this.options.hooks.beforeRunIteration(run, this.runCount, this.options);
-
-        const lighthouseConfig = deepmerge(this.options.lighthouseConfig, {
-          settings: {
-            emulatedFormFactor: device,
-          },
-        });
 
         const lhl = new LighthouseLauncher({
           url: this.url,
