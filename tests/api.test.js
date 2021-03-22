@@ -2,7 +2,7 @@ const PageSpeeder = require("../Pagespeeder");
 let scores = null;
 
 beforeAll(async () => {
-  const ps = new PageSpeeder("https://github.com", "mobile");
+  const ps = new PageSpeeder("https://github.com/hummal/pagespeeder", "mobile");
   scores = await ps.run();
 });
 

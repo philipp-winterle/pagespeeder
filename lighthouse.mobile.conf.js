@@ -1,3 +1,5 @@
+const constants = require("lighthouse/lighthouse-core/config/constants");
+
 module.exports = {
   extends: "lighthouse:default",
   settings: {
@@ -13,6 +15,9 @@ module.exports = {
       "cumulative-layout-shift",
       "estimated-input-latency",
     ],
-    emulatedFormFactor: "mobile",
+    formFactor: "mobile",
+    throttling: constants.throttling.mobileSlow4G,
+    screenEmulation: constants.screenEmulationMetrics.mobile,
+    emulatedUserAgent: constants.userAgents.mobile,
   },
 };

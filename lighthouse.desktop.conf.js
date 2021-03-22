@@ -1,5 +1,4 @@
-const desktopDense4G = require("lighthouse/lighthouse-core/config/constants")
-  .throttling.desktopDense4G;
+const constants = require("lighthouse/lighthouse-core/config/constants");
 
 module.exports = {
   extends: "lighthouse:default",
@@ -15,7 +14,9 @@ module.exports = {
       "cumulative-layout-shift",
       "estimated-input-latency",
     ],
-    emulatedFormFactor: "desktop",
-    throttling: desktopDense4G,
+    formFactor: "desktop",
+    throttling: constants.throttling.desktopDense4G,
+    screenEmulation: constants.screenEmulationMetrics.desktop,
+    emulatedUserAgent: constants.userAgents.desktop,
   },
 };
