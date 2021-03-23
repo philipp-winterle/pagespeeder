@@ -1,10 +1,9 @@
+const debug = require("debug")("Pagespeeder-Core");
 const deepmerge = require("deepmerge");
 const LighthouseLauncher = require("./LighthouseLauncher.js");
 const browserLauncher = require("./BrowserLauncher.js");
 const lighthouseMobileConfig = require("./lighthouse.mobile.conf.js");
 const lighthouseDesktopConfig = require("./lighthouse.desktop.conf.js");
-
-const debug = require("debug")("Pagespeeder-Core");
 
 /**
  * @description
@@ -12,9 +11,11 @@ const debug = require("debug")("Pagespeeder-Core");
  */
 class PageSpeeder {
   availableDevices = [PageSpeeder.DEVICE_MOBILE, PageSpeeder.DEVICE_DESKTOP];
+  browser = null;
   scores = [];
   devices = [];
   runCount = 1;
+  isOwnBrowser = true;
   options = {
     launcherOptions: {
       port: null,
@@ -71,9 +72,9 @@ class PageSpeeder {
   }
 
   static getDeviceConfig(device) {
-    if (device === "mobile") {
+    if (device === PageSpeeder.DEVICE_MOBILE) {
       return lighthouseMobileConfig;
-    } else if (device === "desktop") {
+    } else if (device === PageSpeeder.DEVICE_DESKTOP) {
       return lighthouseDesktopConfig;
     } else {
       throw new Error(`Can not get lighthouse config for device ${device}`);
@@ -142,15 +143,19 @@ class PageSpeeder {
    * @memberof PageSpeeder
    */
   async run() {
+    debug("Run started");
     // Variables
     const scores = [];
-    const canCloseBrowser = this.options.launcherOptions.port === null;
-    const { browser, browserPort } = await browserLauncher(
+    const { browser, browserPort, isOwnBrowser } = await browserLauncher(
       this.options.launcherOptions
     ); // returns a browser or null
+    this.browser = browser;
     this.options.launcherOptions.port = browserPort;
+    this.isOwnBrowser = isOwnBrowser;
 
+    debug("Iterating devices");
     for await (const device of this.devices) {
+      debug(`Device: ${device}`);
       // Call hook
       this.options.hooks.beforeRunDevice(device, this.options);
 
@@ -159,11 +164,12 @@ class PageSpeeder {
       let scoresArr = [];
 
       while (run++ < this.runCount) {
+        debug(`Start run #${run}`);
         this.options.hooks.beforeRunIteration(run, this.runCount, this.options);
 
         const lhl = new LighthouseLauncher({
           url: this.url,
-          browser,
+          browser: this.browser,
           browserPort,
           lighthouseConfig,
         });
@@ -172,6 +178,11 @@ class PageSpeeder {
           .launch()
           .then((results) => {
             // Results can be empty on lh crash
+            debug(
+              `Recieved results from run ${run}. Results valid? ${
+                results !== undefined && results !== null
+              }`
+            );
             if (results) {
               const audits = Object.entries(results.audits);
 
@@ -189,9 +200,11 @@ class PageSpeeder {
 
         this.options.hooks.afterRunInteration(run, this.runCount, this.options);
       }
+      debug(`Finished ${this.runCount} runs`);
 
       if (scoresArr.length > 0) {
         // Contains an object of scores
+        debug("Calculating scores");
         const score = this.normalizeScores(scoresArr);
 
         this.options.hooks.afterRunDevice(device, this.options);
@@ -204,13 +217,17 @@ class PageSpeeder {
     }
 
     // When there is a browser -> close it. If the browser was not opened by us -> keep it
-    if (canCloseBrowser) {
-      await browser.close();
-    } else {
-      await browser.disconnect();
-    }
+    this.shutdown();
 
     return scores;
+  }
+
+  async shutdown() {
+    if (this.isOwnBrowser) {
+      await this.browser.close();
+    } else {
+      await this.browser.disconnect();
+    }
   }
 }
 

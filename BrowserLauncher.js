@@ -25,11 +25,13 @@ const launchBrowser = async (browserOptions) => {
 module.exports = async (browserOptions) => {
   let _browser = null;
   let _browserPort = browserOptions.port || null;
+  let _isOwnBrowser = true;
   // If port exists and is a number
   if (!isNaN(parseInt(_browserPort))) {
     try {
       debug("Trying to connect to browser with port " + _browserPort);
       _browser = await connectToBrowser(_browserPort);
+      _isOwnBrowser = false;
       debug(`Connected to existing browser at port ${_browserPort}`);
     } catch (e) {
       debug("Connection failed.");
@@ -46,7 +48,6 @@ module.exports = async (browserOptions) => {
     const { browser, browserPort } = await launchBrowser(browserOptions);
     _browser = browser;
     _browserPort = browserPort;
-
     // // Get websocketDebuggerUrl for conneting to browser
     // const response = await fetch(
     //   `http://localhost:${browserPort}/json/version`
@@ -61,5 +62,9 @@ module.exports = async (browserOptions) => {
     // });
   }
 
-  return { browser: _browser, browserPort: _browserPort };
+  return {
+    browser: _browser,
+    browserPort: _browserPort,
+    isOwnBrowser: _isOwnBrowser,
+  };
 };

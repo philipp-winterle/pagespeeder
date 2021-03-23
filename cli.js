@@ -19,13 +19,23 @@ let runCount = Number(argv.runs || argv.r) || 1;
 const isOutputJSON = outputType === "json";
 const defaultFileName = "lighthouse_result.json";
 
-// Exit Handlers
-process.on("SIGINT", () => {
-  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
-  // some other closing procedures go here
-  process.exit(0);
-});
+// Variables
+/** @type {PageSpeeder} pagespeeder  */
+let pagespeeder = null;
 
+// Exit Handlers
+const exitHandler = async () => {
+  console.log("\nGracefully shutting down from Signal SIGINT or SIGTERM");
+  if (pagespeeder) {
+    await pagespeeder.shutdown();
+  }
+  process.exit(0);
+};
+
+process.on("SIGINT", exitHandler);
+process.on("SIGTERM", exitHandler);
+
+// Handle wrong parameters or url missmatches
 if (!url) {
   console.error(
     `You need to set an url with "--url https://google.com" or "-u https://google.com" in order to recieve pagespeed information.`
@@ -39,6 +49,8 @@ if (!url) {
   console.error(`The given url doesn't seem to be a valid. Abort!`);
   process.exit(1);
 }
+
+// Capture missconfiguration
 if (
   outputType === "json" &&
   (outputPath === null || outputPath === undefined)
@@ -59,9 +71,9 @@ if (
 
 const colorScore = (score) => {
   const rating = {
-    "90": "green",
-    "40": "yellow",
-    "0": "red",
+    90: "green",
+    40: "yellow",
+    0: "red",
   };
   const ratingKeys = Object.keys(rating);
 
@@ -113,8 +125,7 @@ const createResultTable = (device, scores) => {
     require("lighthouse/package.json").version
   )}`);
 
-  /** @type {PageSpeeder} ps  */
-  const ps = new PageSpeeder(url, device, runCount, {
+  pagespeeder = new PageSpeeder(url, device, runCount, {
     hooks: {
       beforeRunDevice: (device, options) => {
         if (options.silent === false) {
@@ -130,7 +141,7 @@ const createResultTable = (device, scores) => {
       },
     },
   });
-  const scores = await ps.run();
+  const scores = await pagespeeder.run();
 
   for (const scoreObj of scores) {
     if (isOutputJSON) {
