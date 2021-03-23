@@ -1,22 +1,5 @@
-/*
- * GNU General Public License, Version 3.0
- *
- * Copyright (c) 2020 Philipp Winterle
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 const lighthouse = require("lighthouse");
+const debug = require("debug")("Pagespeeder-Core:LighthouseLauncher");
 
 /**
  * @description Launches chrome with url, options and config
@@ -35,6 +18,7 @@ class LighthouseLauncher {
     this.browser = browser;
     this.browserPort = browserPort;
     this.lighthouseConfig = lighthouseConfig;
+    debug("LighthouseLauncher instance constructed");
   }
 
   /**
@@ -43,6 +27,7 @@ class LighthouseLauncher {
    * @memberof LighthouseLauncher
    */
   launch() {
+    debug("launching lighthouse");
     return lighthouse(
       this.url,
       { port: this.browserPort },
@@ -53,9 +38,11 @@ class LighthouseLauncher {
         // https://github.com/GoogleChrome/lighthouse/blob/master/types/lhr.d.ts
         // use results.report for the HTML/JSON/CSV output as a string
         // use results.artifacts for the trace/screenshots/other specific case you need (rarer)
+        debug("lighthouse run successfully");
         return results.lhr;
       })
       .catch((err) => {
+        debug("lighthouse crashed");
         console.error(err);
       });
   }

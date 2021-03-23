@@ -170,7 +170,7 @@ class PageSpeeder {
         const lhl = new LighthouseLauncher({
           url: this.url,
           browser: this.browser,
-          browserPort,
+          browserPort: this.options.launcherOptions.port,
           lighthouseConfig,
         });
 
@@ -223,10 +223,12 @@ class PageSpeeder {
   }
 
   async shutdown() {
-    if (this.isOwnBrowser) {
-      await this.browser.close();
-    } else {
-      await this.browser.disconnect();
+    if (this.browser) {
+      if (this.isOwnBrowser) {
+        await this.browser.close();
+      } else {
+        await this.browser.disconnect();
+      }
     }
   }
 }

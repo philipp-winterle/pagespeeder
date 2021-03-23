@@ -27,7 +27,7 @@
     "lighthouse": "^7.3.0",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.1",
-    "puppeteer": "^5.2.1",
+    "puppeteer": "^8.0.0",
     "yargs": "^16.0.0"
   },
   "bin": {

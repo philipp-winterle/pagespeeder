@@ -29,7 +29,7 @@ module.exports = async (browserOptions) => {
   // If port exists and is a number
   if (!isNaN(parseInt(_browserPort))) {
     try {
-      debug("Trying to connect to browser with port " + _browserPort);
+      debug(`Trying to connect to browser with port ${_browserPort}`);
       _browser = await connectToBrowser(_browserPort);
       _isOwnBrowser = false;
       debug(`Connected to existing browser at port ${_browserPort}`);
@@ -42,9 +42,7 @@ module.exports = async (browserOptions) => {
       _browserPort = browserPort;
     }
   } else {
-    debug(
-      "Browserport was not a number. Connection not possible. Launching a new browser."
-    );
+    debug("No browserport set. Launching a new browser.");
     const { browser, browserPort } = await launchBrowser(browserOptions);
     _browser = browser;
     _browserPort = browserPort;
