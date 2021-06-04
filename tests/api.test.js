@@ -1,3 +1,4 @@
+jest.setTimeout(10000);
 const PageSpeeder = require("../Pagespeeder");
 let scores = null;
 
@@ -36,14 +37,12 @@ describe("pagespeeder execution", () => {
     const audits = mobileScore.score.auditScores;
     const expectedAuditKeys = [
       "First Contentful Paint",
-      "Largest Contentful Paint",
-      "First Meaningful Paint",
       "Speed Index",
-      "Estimated Input Latency",
+      "Largest Contentful Paint",
+      "Time to Interactive",
       "Total Blocking Time",
       "Cumulative Layout Shift",
-      "First CPU Idle",
-      "Time to Interactive",
+      "First Meaningful Paint",
     ];
     expect(Object.keys(audits)).toEqual(
       expect.arrayContaining(expectedAuditKeys)

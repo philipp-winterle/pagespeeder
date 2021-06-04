@@ -24,16 +24,16 @@
     "cli-table3": "^0.6.0",
     "debug": "^4.1.1",
     "deepmerge": "^4.2.2",
-    "lighthouse": "^7.3.0",
+    "lighthouse": "^8.0.0",
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.1",
-    "puppeteer": "^8.0.0",
-    "yargs": "^16.0.0"
+    "puppeteer": "^10.0.0",
+    "yargs": "^17.0.1"
   },
   "bin": {
     "pagespeeder": "./cli.js"
   },
   "devDependencies": {
-    "jest": "^26.4.2"
+    "jest": "^27.0.4"
   }
 }
