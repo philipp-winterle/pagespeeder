@@ -1,4 +1,4 @@
-jest.setTimeout(10000);
+jest.setTimeout(60000);
 const PageSpeeder = require("../Pagespeeder");
 let scores = null;
 
