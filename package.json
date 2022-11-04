@@ -2,9 +2,11 @@
   "name": "pagespeeder",
   "version": "1.5.0",
   "description": "",
+  "type": "module",
   "main": "Pagespeeder.js",
   "scripts": {
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "release": "standard-version"
   },
   "engines": {
     "node": ">=14"
@@ -24,19 +26,23 @@
   ],
   "dependencies": {
     "ansi-colors": "^4.1.1",
-    "cli-table3": "^0.6.0",
+    "cli-table3": "^0.6.3",
     "debug": "^4.1.1",
     "deepmerge": "^4.2.2",
-    "lighthouse": "^9.1.0",
+    "lighthouse": "^9.6.8",
     "mkdirp": "^1.0.4",
-    "node-fetch": "^3.1.0",
-    "puppeteer": "^15.4.0",
-    "yargs": "^17.0.1"
+    "node-fetch": "^3.2.10",
+    "puppeteer": "^19.2.2",
+    "yargs": "^17.6.2"
   },
   "bin": {
     "pagespeeder": "./cli.js"
   },
   "devDependencies": {
-    "jest": "^28.1.3"
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "husky": "^8.0.1",
+    "jest": "^29.2.2",
+    "standard-version": "^9.5.0"
   }
 }

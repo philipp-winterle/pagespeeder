@@ -1,6 +1,8 @@
-jest.setTimeout(60000);
-const PageSpeeder = require("../Pagespeeder");
+import { jest } from "@jest/globals";
+import PageSpeeder from "../Pagespeeder";
+
 let scores = null;
+jest.setTimeout(60000);
 
 beforeAll(async () => {
   const ps = new PageSpeeder("https://github.com/hummal/pagespeeder", "mobile");

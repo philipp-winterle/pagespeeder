@@ -1,6 +1,6 @@
-const constants = require("lighthouse/lighthouse-core/config/constants");
+import constants from "lighthouse/lighthouse-core/config/constants";
 
-module.exports = {
+export default {
   extends: "lighthouse:default",
   settings: {
     onlyAudits: [

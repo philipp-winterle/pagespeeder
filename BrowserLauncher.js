@@ -1,5 +1,7 @@
-const debug = require("debug")("Pagespeeder-Core:BrowserLauncher");
-const puppeteer = require("puppeteer");
+import puppeteer from "puppeteer";
+import doDebug from "debug";
+
+const debug = doDebug("Pagespeeder-Core:BrowserLauncher");
 
 const connectToBrowser = async (port) => {
   return await puppeteer.connect({
@@ -22,7 +24,7 @@ const launchBrowser = async (browserOptions) => {
  * @description Launches chrome with url, options and config
  * @returns <Promise<puppeteer.Browser>> Chrome Browser
  */
-module.exports = async (browserOptions) => {
+export default async (browserOptions) => {
   let _browser = null;
   let _browserPort = browserOptions.port || null;
   let _isOwnBrowser = true;

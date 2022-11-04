@@ -1,9 +1,11 @@
-const debug = require("debug")("Pagespeeder-Core");
-const deepmerge = require("deepmerge");
-const LighthouseLauncher = require("./LighthouseLauncher.js");
-const browserLauncher = require("./BrowserLauncher.js");
-const lighthouseMobileConfig = require("./lighthouse.mobile.conf.js");
-const lighthouseDesktopConfig = require("./lighthouse.desktop.conf.js");
+import doDebug from "debug";
+import deepmerge from "deepmerge";
+import LighthouseLauncher from "./LighthouseLauncher.js";
+import browserLauncher from "./BrowserLauncher.js";
+import lighthouseMobileConfig from "./lighthouse.mobile.conf.js";
+import lighthouseDesktopConfig from "./lighthouse.desktop.conf.js";
+
+const debug = doDebug("Pagespeeder-Core");
 
 /**
  * @description
@@ -233,4 +235,4 @@ class PageSpeeder {
   }
 }
 
-module.exports = PageSpeeder;
+export { PageSpeeder as default, PageSpeeder };

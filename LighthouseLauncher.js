@@ -1,5 +1,7 @@
-const lighthouse = require("lighthouse");
-const debug = require("debug")("Pagespeeder-Core:LighthouseLauncher");
+import lighthouse from "lighthouse";
+import doDebug from "debug";
+
+const debug = doDebug("Pagespeeder-Core:LighthouseLauncher");
 
 /**
  * @description Launches chrome with url, options and config
@@ -48,4 +50,4 @@ class LighthouseLauncher {
   }
 }
 
-module.exports = LighthouseLauncher;
+export { LighthouseLauncher, LighthouseLauncher as default };
