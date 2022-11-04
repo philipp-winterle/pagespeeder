@@ -1,4 +1,4 @@
-import constants from "lighthouse/lighthouse-core/config/constants";
+import constants from "lighthouse/lighthouse-core/config/constants.js";
 
 export default {
   extends: "lighthouse:default",
