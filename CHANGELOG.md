@@ -1,4 +1,11 @@
 CHANGELOG CHECKSTRAP
+## [3.0.1](https://github.com/philipp-winterle/pagespeeder/compare/v3.0.0...v3.0.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* publish was missing npm ci command ([b8ee230](https://github.com/philipp-winterle/pagespeeder/commit/b8ee230429a5f7b9433f4c8814b9fcdddcde8d4f))
+
 ## [3.0.0](https://github.com/philipp-winterle/pagespeeder/compare/v2.0.1...v3.0.0) (2024-06-18)
 
 
