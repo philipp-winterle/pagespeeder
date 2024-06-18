@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
-const path = require("path");
-const argv = require("yargs").argv;
-const Table = require("cli-table3");
-const c = require("ansi-colors");
-const fs = require("fs").promises;
-const mkdirp = require("mkdirp");
-const PageSpeeder = require("./Pagespeeder.js");
+import path from "path";
+import Table from "cli-table3";
+import c from "ansi-colors";
+import { promises as fs } from "fs";
+import { mkdirp } from "mkdirp";
+import PageSpeeder from "./Pagespeeder.js";
+import yargs from "yargs";
+import package_json from "./package.json" assert { type: "json" };
+
+const argv = yargs(process.argv.slice(2)).argv;
+const version = package_json.version;
 
 // Get Parameters
 const outputType = argv.output || argv.o || "cli";
@@ -121,9 +125,7 @@ const createResultTable = (device, scores) => {
 (async () => {
   console.log(`
 \t${c.yellow.bold("Lighthouse Performance Measurement")}
-\t${c.italic.grey("Version:")} ${c.italic.grey(
-    require("lighthouse/package.json").version
-  )}`);
+\t${c.italic.grey("Version:")} ${c.italic.grey(version)}`);
 
   pagespeeder = new PageSpeeder(url, device, runCount, {
     hooks: {

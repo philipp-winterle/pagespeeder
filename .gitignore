@@ -1,6 +1,11 @@
 .vscode
 .idea
 .DS_Store
-test
+
 node_modules
+
+
+# Tests
 coverage
+tests/results/*
+!tests/results/.gitkeep

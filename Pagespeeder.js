@@ -1,7 +1,7 @@
 import doDebug from "debug";
 import deepmerge from "deepmerge";
+
 import LighthouseLauncher from "./LighthouseLauncher.js";
-import browserLauncher from "./BrowserLauncher.js";
 import lighthouseMobileConfig from "./lighthouse.mobile.conf.js";
 import lighthouseDesktopConfig from "./lighthouse.desktop.conf.js";
 
@@ -19,17 +19,12 @@ class PageSpeeder {
   runCount = 1;
   isOwnBrowser = true;
   options = {
-    launcherOptions: {
+    browserOptions: {
       port: null,
-      ignoreHTTPSErrors: true,
-      headless: true, // Should always be true. Only for testing to false
-      args: [
-        "--no-zygote",
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-gpu",
-      ],
+      host: null,
+      browserWSEndpoint: null,
     },
+
     silent: false,
     hooks: {
       beforeRunDevice: (device, options) => {},
@@ -148,12 +143,7 @@ class PageSpeeder {
     debug("Run started");
     // Variables
     const scores = [];
-    const { browser, browserPort, isOwnBrowser } = await browserLauncher(
-      this.options.launcherOptions
-    ); // returns a browser or null
-    this.browser = browser;
-    this.options.launcherOptions.port = browserPort;
-    this.isOwnBrowser = isOwnBrowser;
+    const { browserOptions, launcherOptions } = this.options;
 
     debug("Iterating devices");
     for await (const device of this.devices) {
@@ -171,9 +161,8 @@ class PageSpeeder {
 
         const lhl = new LighthouseLauncher({
           url: this.url,
-          browser: this.browser,
-          browserPort: this.options.launcherOptions.port,
           lighthouseConfig,
+          browserOptions,
         });
 
         await lhl
@@ -197,7 +186,7 @@ class PageSpeeder {
             }
           })
           .catch((err) => {
-            console.error(err);
+            throw err;
           });
 
         this.options.hooks.afterRunInteration(run, this.runCount, this.options);

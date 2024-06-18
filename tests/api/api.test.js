@@ -1,13 +1,7 @@
 import { jest } from "@jest/globals";
-import PageSpeeder from "../Pagespeeder";
+import scores from "../results/test-results.json" assert { type: "json" };
 
-let scores = null;
 jest.setTimeout(60000);
-
-beforeAll(async () => {
-  const ps = new PageSpeeder("https://github.com/hummal/pagespeeder", "mobile");
-  scores = await ps.run();
-});
 
 describe("pagespeeder execution", () => {
   test("pagespeeder result check", () => {
