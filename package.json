@@ -5,15 +5,15 @@
   "type": "module",
   "main": "Pagespeeder.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "release": "standard-version"
   },
   "engines": {
     "node": ">=18"
   },
-  "homepage": "https://github.com/hummal/pagespeeder",
+  "homepage": "https://github.com/philipp-winterle/pagespeeder",
   "bugs": {
-    "url": "https://github.com/hummal/pagespeeder/issues"
+    "url": "https://github.com/philipp-winterle/pagespeeder/issues"
   },
   "author": "",
   "license": "ISC",

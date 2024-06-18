@@ -207,20 +207,7 @@ class PageSpeeder {
       }
     }
 
-    // When there is a browser -> close it. If the browser was not opened by us -> keep it
-    this.shutdown();
-
     return scores;
-  }
-
-  async shutdown() {
-    if (this.browser) {
-      if (this.isOwnBrowser) {
-        await this.browser.close();
-      } else {
-        await this.browser.disconnect();
-      }
-    }
   }
 }
 
