@@ -1,4 +1,22 @@
 CHANGELOG CHECKSTRAP
+## [3.0.0](https://github.com/philipp-winterle/pagespeeder/compare/v2.0.1...v3.0.0) (2024-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* rewritten browser creation
+* reworked to nodejs 18 minimum
+
+### Bug Fixes
+
+* fixed cli to esm ([acd0def](https://github.com/philipp-winterle/pagespeeder/commit/acd0def4bb70d49b82c8be415f33bc93c382edc7))
+
+
+### Miscellaneous Chores
+
+* reworked to nodejs 18 minimum ([acd0def](https://github.com/philipp-winterle/pagespeeder/commit/acd0def4bb70d49b82c8be415f33bc93c382edc7))
+* rewritten browser creation ([acd0def](https://github.com/philipp-winterle/pagespeeder/commit/acd0def4bb70d49b82c8be415f33bc93c382edc7))
+
 ### [2.0.1](https://github.com/hummal/pagespeeder/compare/v2.0.0...v2.0.1) (2022-11-04)
 
 
