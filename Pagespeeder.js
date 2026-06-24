@@ -100,7 +100,11 @@ class PageSpeeder {
       // iterate over the audits and sum them up
       const audits = result.audits;
 
-      for (const [key, audit] of audits) {
+      for (const [, audit] of audits) {
+        if (audit.score == null || audit.numericValue == null) {
+          continue;
+        }
+
         const scoreBucket = scoresBucket.auditScores[audit.title];
         scoreNames.add(audit.title);
         if (scoreBucket !== undefined) {

@@ -7,9 +7,9 @@ import { promises as fs } from "fs";
 import { mkdirp } from "mkdirp";
 import PageSpeeder from "./Pagespeeder.js";
 import yargs from "yargs";
-import package_json from "./package.json" assert { type: "json" };
+import package_json from "./package.json" with { type: "json" };
 
-const argv = yargs(process.argv.slice(2)).argv;
+const argv = yargs(process.argv.slice(2)).parseSync();
 const version = package_json.version;
 
 // Get Parameters

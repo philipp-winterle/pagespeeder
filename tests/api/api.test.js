@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import scores from "../results/test-results.json" assert { type: "json" };
+import scores from "../results/test-results.json" with { type: "json" };
 
 jest.setTimeout(60000);
 
@@ -35,10 +35,8 @@ describe("pagespeeder execution", () => {
       "First Contentful Paint",
       "Speed Index",
       "Largest Contentful Paint",
-      "Time to Interactive",
       "Total Blocking Time",
       "Cumulative Layout Shift",
-      "First Meaningful Paint",
     ];
     expect(Object.keys(audits)).toEqual(
       expect.arrayContaining(expectedAuditKeys)

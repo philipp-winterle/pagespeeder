@@ -1,0 +1,6 @@
+# Use Conventional Commits. For this major release, include a breaking change:
+#
+# feat!: upgrade dependencies and require Node.js 22.19+
+#
+# BREAKING CHANGE: Minimum Node.js version is 22.19. Dropped support for Node 18
+# and 20. Upgraded Lighthouse 13, Puppeteer 25, Jest 30, and Yargs 18.
