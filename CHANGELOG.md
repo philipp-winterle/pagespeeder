@@ -1,4 +1,11 @@
 CHANGELOG
+## [4.0.3](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v4.0.2...pagespeeder-v4.0.3) (2026-06-24)
+
+
+### 🐞 Bug Fixes
+
+* update npm-publish workflow for Node.js 24 ([612189f](https://github.com/philipp-winterle/pagespeeder/commit/612189f5fbf3e4d479ba536f07350f09746bc131))
+
 ## [4.0.2](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v4.0.1...pagespeeder-v4.0.2) (2026-06-24)
 
 
