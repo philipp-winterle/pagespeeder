@@ -1,6 +1,13 @@
-import config from "lighthouse/core/config/lr-mobile-config.js";
+import baseConfig from "lighthouse/core/config/lr-mobile-config.js";
 
-config.settings.onlyCategories = ["performance"];
+/** @type {import('lighthouse').Config} */
+const config = {
+  ...baseConfig,
+  settings: {
+    ...baseConfig.settings,
+    onlyCategories: ["performance"],
+  },
+};
 
 export default config;
 export { config };
