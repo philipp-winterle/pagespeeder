@@ -42,5 +42,10 @@
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "release-please": "^17.10.0"
+  },
+  "overrides": {
+    "@sentry/node": "10.60.0",
+    "@opentelemetry/core": "2.8.0",
+    "js-yaml": "4.2.0"
   }
 }
