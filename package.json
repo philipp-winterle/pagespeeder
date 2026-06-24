@@ -34,7 +34,7 @@
     "yargs": "^18.0.0"
   },
   "bin": {
-    "pagespeeder": "./cli.js"
+    "pagespeeder": "cli.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
