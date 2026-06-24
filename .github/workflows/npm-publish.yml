@@ -1,33 +1,42 @@
-name: Publish Package to NPM
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-on:
-  release:
-    types: [published]
+name: Publish NPM Package
 
 permissions:
-  id-token: write  # Required for OIDC
-  contents: read
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+on:
+    workflow_dispatch:
+        branches:
+            - main
+    release:
+        types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm ci
-      - run: npm test
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+            - run: npm install
+            - run: npm test
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+    publish-npm:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  registry-url: https://registry.npmjs.org/
+            - run: npm install
+            - run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.npm_token}}
