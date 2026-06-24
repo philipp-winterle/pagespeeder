@@ -1,4 +1,12 @@
 CHANGELOG
+## [4.0.2](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v4.0.1...pagespeeder-v4.0.2) (2026-06-24)
+
+
+### 🐞 Bug Fixes
+
+* extend lighthouse lr presets without mutating shared config ([f8c312a](https://github.com/philipp-winterle/pagespeeder/commit/f8c312ab60a69b6d2917d7ec18b4251e62faeeed))
+* remove leading ./ from pagespeeder bin path ([bd9dfff](https://github.com/philipp-winterle/pagespeeder/commit/bd9dfffe87ff091c8969cc093dd4d2b8f385df38))
+
 ## [4.0.1](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v4.0.0...pagespeeder-v4.0.1) (2026-06-24)
 
 
