@@ -1,4 +1,4 @@
-CHANGELOG CHECKSTRAP
+CHANGELOG
 ## [4.0.0](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v3.0.1...pagespeeder-v4.0.0) (2026-06-24)
 
 
