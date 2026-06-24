@@ -1,4 +1,11 @@
 CHANGELOG
+## [4.0.1](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v4.0.0...pagespeeder-v4.0.1) (2026-06-24)
+
+
+### 🐞 Bug Fixes
+
+* update bin path for pagespeeder in package.json ([75f4c64](https://github.com/philipp-winterle/pagespeeder/commit/75f4c64587c0b56debb73814b2e0f6878aa51f75))
+
 ## [4.0.0](https://github.com/philipp-winterle/pagespeeder/compare/pagespeeder-v3.0.1...pagespeeder-v4.0.0) (2026-06-24)
 
 
