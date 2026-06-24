@@ -14,7 +14,11 @@
   "bugs": {
     "url": "https://github.com/philipp-winterle/pagespeeder/issues"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philipp-winterle/pagespeeder.git"
+  },
+  "author": "Philipp Winterle",
   "license": "ISC",
   "keywords": [
     "pagespeed",
